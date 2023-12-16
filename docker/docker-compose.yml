@@ -9,6 +9,6 @@ services:
       - 'POSTGRES_PASSWORD=po-user'
       - 'POSTGRES_USER=po-user'
     volumes:
-      - ./docker/docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
+      - ./docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
     ports:
       - "5433:5432"
