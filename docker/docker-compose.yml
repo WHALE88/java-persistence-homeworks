@@ -1,8 +1,8 @@
 version: '3.8'
 services:
   postgres:
-    container_name: postgres-16
-    image: 'postgres:16.1'
+    container_name: postgres-15
+    image: 'postgres:15.5'
     restart: always
     environment:
       - 'POSTGRES_DB=bobocode'

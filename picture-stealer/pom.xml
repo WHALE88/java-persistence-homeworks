@@ -9,25 +9,18 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.bobocode</groupId>
     <artifactId>picture-stealer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>picture-stealer</name>
     <description>picture-stealer</description>
 
     <dependencies>
-        <!-- Log4j -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+            <exclusions>
+
+            </exclusions>
         </dependency>
     </dependencies>
 
