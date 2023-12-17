@@ -4,6 +4,7 @@ import com.bobocode.picturestealer.entity.PhotoEntity;
 import com.bobocode.picturestealer.service.PictureStealerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +24,10 @@ public class NasaPictureStealerProvider {
 
     private final PictureStealerService pictureStealerService;
 
-    @GetMapping("steal/{sol}")
-    public Mono<List<PhotoEntity>> stealImages(@PathVariable("sol") int sol) {
-        return pictureStealerService.getPicturesData(sol);
+    @GetMapping(value = "steal/{sol}", produces = "application/json")
+    public Mono<ResponseEntity<List<PhotoEntity>>> stealImages(@PathVariable("sol") int sol) {
+        return pictureStealerService.getPicturesData(sol)
+                                    .map(ResponseEntity::ok);
     }
 
 }

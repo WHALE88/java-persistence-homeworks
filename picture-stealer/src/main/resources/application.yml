@@ -12,8 +12,27 @@ spring:
     hibernate:
       ddl-auto: none
     properties:
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        transaction:
+          jta:
+            enable: false
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          region:
+            factory_class: infinispan
+          infinispan:
+            statistics:
+              enabled: true
+            #file_store:
+            #  location: 'infinispan/cache-store'
+            # Force using local configuration when only using a single node.
+            # Otherwise a clustered configuration is loaded.
+            cfg: org/infinispan/hibernate/cache/commons/builder/infinispan-configs-local.xml
 
 #Logging
 logging:
@@ -26,7 +45,7 @@ logging:
           jpa: DEBUG
 
 nasa:
-  api-key: cHNew3scYGUY2LCuFVQb3w6eAAddoyBBH6RAChhF
+  api-key: ${NASA_API_KEY}
   host: https://api.nasa.gov/mars-photos/api/v1
 
 
