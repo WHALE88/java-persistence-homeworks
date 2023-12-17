@@ -1,7 +1,9 @@
 package com.bobocode.picturestealer.service;
 
 import com.bobocode.picturestealer.dto.PhotosWrapper;
+import com.bobocode.picturestealer.dto.response.PhotoResp;
 import com.bobocode.picturestealer.entity.PhotoEntity;
+import com.bobocode.picturestealer.mapper.PictureStealerMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +36,7 @@ public class PictureStealerService {
 
     private final WebClient webClient;
     private final PhotoService photoService;
+    private final PictureStealerMapper mapper;
 
     /**
      * Fetches a list of photo data from NASA API for a specific Martian sol.
@@ -42,9 +45,10 @@ public class PictureStealerService {
      * The returned list is sorted based on the NASA ID of the photos.
      *
      * @param sol the Martian sol (solar day on Mars) for which to retrieve photos.
-     * @return a Mono emitting a sorted list of {@link PhotoEntity} objects representing the photos from the specified sol.
+     *
+     * @return a Mono emitting a sorted list of {@link PhotoResp} objects representing the photos from the specified sol.
      */
-    public Mono<List<PhotoEntity>> getPicturesData(int sol) {
+    public Mono<List<PhotoResp>> getPicturesData(int sol) {
         return webClient.get()
                         .uri(host, composePhotosUri(sol))
                         .retrieve()
@@ -52,7 +56,8 @@ public class PictureStealerService {
                         .flatMapIterable(PhotosWrapper::photos)
                         .parallel()
                         .map(photoService::createIfNotExists)
-                        .collectSortedList(Comparator.comparing(PhotoEntity::getNasaId));
+                        .map(mapper::toPhotoResp)
+                        .collectSortedList(Comparator.comparing(PhotoResp::nasaId));
     }
 
     /**
@@ -60,6 +65,7 @@ public class PictureStealerService {
      * This function takes the sol value and creates a URI using the configured host and API key.
      *
      * @param sol the Martian sol for which the URI is to be composed.
+     *
      * @return a function that generates a URI for the NASA API call.
      */
     private Function<UriBuilder, URI> composePhotosUri(int sol) {
