@@ -21,6 +21,7 @@ public class PhotoService {
     private final CameraService cameraService;
     private final PhotoRepository photoRepository;
 
+    //todo: add retry mechanism for resolve OptimisticLockException in case of concurrent requests
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public PhotoEntity createIfNotExists(Photo photo) {
         return photoRepository.findByNasaId(photo.id())
