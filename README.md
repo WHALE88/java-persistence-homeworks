@@ -32,17 +32,30 @@ Spring application will manage the starting and stopping of Docker Compose servi
 
 To run the project with automated management, activate the `docker-compose-nasastealer` profile, which will manage the Docker container's lifecycle.
 
-![img.png](img.png)
+![active_profile_example.png](img/active_profile_example.png)
 
 Also, be sure to pass the `${NASA_API_KEY}` environment variable at startup, which is required for nasa server-side authorization
 As a result of the launch, the `nasastealer` scheme with all relevant tables will be created in the `bobocode` database
 
 ### Manual installation
-You can also run docker-compose manually. To do this, you need to run the following commands in the root directory of the project:
+You can also run docker-compose manually. To do this, you need to run the following commands in the `docker` directory of the project:
 ```shell 
 docker compose up -d
 ```
 Then there is no need to specify anything in the active profile when starting the spring boot application.
 As a result of the launch, the `nasastealer` database will be used, with all relevant tables created in the `public` schema
 
+### Test API
+When the application is started you can use the `StealApi.http` file to test Nasa stealer functionality. 
+It is a script for IntelliJ IDEA's HTTP Client. This tool tests and interacts with web APIs directly from the IDE. 
+The file contains HTTP request definitions, which you can run to send requests to the specified API endpoint. 
+It's a convenient way to test API functionality
 
+![intellij_http_client.png](img/intellij_http_client.png)
+
+
+After API call, you can check the database for the presence of the downloaded picture in the `picture` table
+![photo_table.png](img/photo_table.png)
+
+And `camera` table <p>
+![camera_table.png](img/camera_table.png)
