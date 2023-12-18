@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.1.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -29,28 +29,35 @@
         <mave.compiler.target>21</mave.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <log4j-api.version>2.17.2</log4j-api.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
+        <infinispan.version>14.0.1.Final</infinispan.version>
+        <cache-api.version>1.1.1</cache-api.version>
+        <spring-boot-maven-plugin.version>3.1.6</spring-boot-maven-plugin.version>
+        <hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${log4j-api.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>${log4j-api.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-hibernate-cache-v60</artifactId>
+                <version>${infinispan.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.cache</groupId>
+                <artifactId>cache-api</artifactId>
+                <version>${cache-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -99,6 +106,13 @@
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -115,11 +129,24 @@
                 <configuration>
                     <source>${mave.compiler.source}</source>
                     <target>${mave.compiler.target}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-maven-plugin.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>
