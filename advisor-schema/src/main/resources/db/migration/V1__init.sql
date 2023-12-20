@@ -66,9 +66,10 @@ CREATE TABLE IF NOT EXISTS addresses
 
 CREATE TABLE IF NOT EXISTS phone_numbers
 (
-    applicant_id BIGINT CONSTRAINT phone_numbers_PK PRIMARY KEY,
+    applicant_id BIGINT NOT NULL,
     "number" VARCHAR(15)       CONSTRAINT phone_numbers_number_UK UNIQUE NOT NULL,
     "type"   phone_number_type NOT NULL,
+    CONSTRAINT phone_numbers_PK PRIMARY KEY (applicant_id, "number"),
     CONSTRAINT phone_numbers_applicants_FK FOREIGN KEY (applicant_id) REFERENCES applicants (id) ON DELETE CASCADE,
     CONSTRAINT phone_number_validation CHECK ("number" ~ '^(\+[1-9]{2,3}[0-9]{9}|0[0-9]{9}|101|102|103|112|911)$')
 );
