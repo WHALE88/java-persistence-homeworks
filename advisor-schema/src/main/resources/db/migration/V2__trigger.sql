@@ -14,7 +14,7 @@ $$ LANGUAGE plpgsql;
 
 
 CREATE TRIGGER update_assigned_at_trigger
-    AFTER INSERT OR UPDATE ON applications
+    BEFORE INSERT OR UPDATE ON applications
     FOR EACH ROW EXECUTE FUNCTION update_assigned_at();
 
 -- This function checks if the 'id' of a new advisor being inserted into the 'advisors'
