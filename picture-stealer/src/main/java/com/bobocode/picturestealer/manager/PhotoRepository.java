@@ -16,7 +16,8 @@ public interface PhotoRepository
         extends JpaRepository<PhotoEntity, UUID> {
 
     @Query("select p from PhotoEntity p where p.nasaId = :nasaId")
-    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true"),
+                 @QueryHint(name = org.hibernate.annotations.QueryHints.READ_ONLY, value = "true")})
     Optional<PhotoEntity> findByNasaId(String nasaId);
 
 }

@@ -24,23 +24,18 @@ public class PhotoService {
     //todo: add retry mechanism for resolve OptimisticLockException in case of concurrent requests
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     public PhotoEntity createIfNotExists(Photo photo) {
+        log.debug("Retrieve PhotoEntity by nasa identifier {}", photo.id());
         return photoRepository.findByNasaId(photo.id())
-                              .map(photoEntity1 -> {
-                                  log.debug("Retrieve existing PhotoEntity by nasa " +
-                                            "identifier {}",
-                                            photoEntity1.getNasaId());
-                                  return photoEntity1;
-                              })
-                              .orElseGet(() -> {
-                                  log.info("Create new PhotoEntity by nasa " +
-                                           "identifier {}",
-                                           photo.id());
-                                  final CameraEntity cameraEntity = cameraService.findOrCreateCamera(photo.camera());
+                              .orElseGet(() -> createNewPhotoEntity(photo));
+    }
 
-                                  return photoRepository.save(new PhotoEntity(photo.id(),
-                                                                              cameraEntity,
-                                                                              photo.imgSrc()));
-                              });
+    protected PhotoEntity createNewPhotoEntity(Photo photo) {
+        log.info("Create new PhotoEntity by nasa identifier {}", photo.id());
+        final CameraEntity cameraEntity = cameraService.findOrCreateCamera(photo.camera());
+
+        return photoRepository.save(new PhotoEntity(photo.id(),
+                                                    cameraEntity,
+                                                    photo.imgSrc()));
     }
 
 }

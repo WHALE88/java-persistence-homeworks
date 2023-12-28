@@ -33,6 +33,7 @@ spring:
             # Force using local configuration when only using a single node.
             # Otherwise a clustered configuration is loaded.
             cfg: org/infinispan/hibernate/cache/commons/builder/infinispan-configs-local.xml
+    open-in-view: false
 
 #Logging
 logging:

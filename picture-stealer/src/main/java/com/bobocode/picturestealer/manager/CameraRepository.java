@@ -14,7 +14,8 @@ import java.util.UUID;
 public interface CameraRepository
         extends JpaRepository<CameraEntity, UUID> {
 
-    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true") })
+    @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true"),
+                 @QueryHint(name = org.hibernate.annotations.QueryHints.READ_ONLY, value = "true")})
     Optional<CameraEntity> findByNasaId(String nasaId);
 
 }
