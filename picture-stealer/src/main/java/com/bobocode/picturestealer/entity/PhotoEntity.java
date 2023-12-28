@@ -35,7 +35,7 @@ public class PhotoEntity {
     @Id
     private String id;
 
-    @Column(name = "nasa_id", unique = true)
+    @Column(name = "nasa_id", unique = true, nullable = false, updatable = false)
     private String nasaId;
 
     @ManyToOne(optional = false)
