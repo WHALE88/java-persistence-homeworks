@@ -5,7 +5,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Version;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,9 +43,6 @@ public class CameraEntity {
     @CreationTimestamp
     @Column(name = "created_at")
     private OffsetDateTime createdAt;
-
-    @Version
-    private long version;
 
     public CameraEntity(String nasaId,
                         String name,

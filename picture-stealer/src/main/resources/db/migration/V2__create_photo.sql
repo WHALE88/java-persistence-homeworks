@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS photo
     camera_id  VARCHAR(36)              NULL,
     img_src    VARCHAR(255)             NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    version    int8                     NULL,
 
     CONSTRAINT photo_pkey PRIMARY KEY (id),
     CONSTRAINT photo_camera_id_fkey FOREIGN KEY (camera_id) REFERENCES camera (id)

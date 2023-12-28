@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS camera
     "name"     VARCHAR(255)             NULL,
     full_name  VARCHAR(255)             NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    version    int8                     NULL,
 
     CONSTRAINT camera_pkey PRIMARY KEY (id)
 );

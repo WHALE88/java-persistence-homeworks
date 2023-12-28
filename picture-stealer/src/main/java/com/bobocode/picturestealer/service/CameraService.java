@@ -21,7 +21,6 @@ public class CameraService {
 
     private final CameraRepository cameraRepository;
 
-    @Lock(LockModeType.OPTIMISTIC_FORCE_INCREMENT)
     @Transactional(propagation = Propagation.REQUIRED)
     public CameraEntity findOrCreateCamera(Camera camera) {
         return cameraRepository.findByNasaId(camera.id())
