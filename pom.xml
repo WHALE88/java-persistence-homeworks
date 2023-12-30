@@ -21,6 +21,7 @@
 
     <modules>
         <module>picture-stealer</module>
+        <module>advisor-schema</module>
     </modules>
 
     <properties>

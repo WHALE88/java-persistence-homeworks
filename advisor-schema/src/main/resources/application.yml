@@ -1,0 +1,19 @@
+spring:
+  docker:
+    compose:
+      lifecycle-management: start-and-stop
+      enabled: true
+      file: docker/docker-compose.yml
+  flyway:
+    default-schema: advisory_schema
+  datasource:
+    hikari:
+      schema: advisory_schema
+    url: jdbc:postgresql://127.0.0.1:5433/bobocode
+    username: po-user
+    password: po-user
+  # JPA/Hibernate properties
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
