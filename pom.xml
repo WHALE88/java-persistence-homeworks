@@ -21,6 +21,7 @@
 
     <modules>
         <module>picture-stealer</module>
+        <module>orm-poc</module>
     </modules>
 
     <properties>
